@@ -1,0 +1,25 @@
+package com.amd.alloyfutsalapp.db.converters
+
+import androidx.room.TypeConverter
+import com.amd.alloyfutsalapp.model.ImgSrcItem
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+
+class FieldConverter {
+
+    @TypeConverter
+    fun fromImgList(imgList: List<ImgSrcItem>): String {
+        val gson = Gson()
+        val type: Type = object : TypeToken<List<ImgSrcItem>>() {}.type
+        return gson.toJson(imgList, type)
+    }
+
+    @TypeConverter
+    fun toImgList(imgListString: String): List<ImgSrcItem> {
+        val gson = Gson()
+        val type: Type = object : TypeToken<List<ImgSrcItem>>() {}.type
+        return gson.fromJson(imgListString, type)
+    }
+
+}

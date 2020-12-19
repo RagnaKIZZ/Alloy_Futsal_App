@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Alloy Futsal App</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="saved_field">Saved Field</string>
+    <string name="info">Info</string>
+    <string name="cari_lapangan">Cari lapangan...</string>
+    <string name="tidak_ada_hasil">Tidak ada hasil</string>
+    <string name="to_search_field">to search field</string>
+    <string name="title_activity_field_details">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="alamat">Alamat:</string>
+    <string name="jumlah_lapangan">Jumlah lapangan:</string>
+    <string name="harga">Harga:</string>
+    <string name="jam_operasional">Jam operasional:</string>
+    <string name="fasilitas">Fasilitas:</string>
+    <string name="lapangan_tersimpan">Lapangan tersimpan!</string>
+    <string name="lapangan_terhapus">Lapangan terhapus!</string>
+    <string name="book">Book</string>
+    <string name="tidak_ada_lapangan_yang_tersimpan">Upps! Kamu belum menyimpan lapangan apapun! Yukk, lihat-lihat dahulu list lapangannya</string>
+</resources>

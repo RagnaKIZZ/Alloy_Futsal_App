@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_grey"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.info.InfoFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Pembuat :\n
+Mar\'Ali\n
+160101042\n
+Teknik Informatika\n
+Pradita Institue
+"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Pembimbing :\n
+Ahmad Rusdani"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+</LinearLayout>
