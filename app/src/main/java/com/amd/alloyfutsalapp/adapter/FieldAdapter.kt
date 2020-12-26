@@ -41,8 +41,9 @@ class FieldAdapter(private val context: Context, private val param: Int) :
             txtTitle.text = data.nameField
             txtAddress.text = data.address
             if (param == 1) {
-                val snapHelper = LinearSnapHelper()
-                snapHelper.attachToRecyclerView(rvImg)
+                if (rvImg.onFlingListener == null){
+                    LinearSnapHelper().attachToRecyclerView(rvImg)
+                }
             }
             rvImg.apply {
                 adapter = imgAdapter

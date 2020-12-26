@@ -4,8 +4,9 @@ class Constants {
 
     companion object{
 
-//        const val BASE_URL = "http://192.168.1.10/AlloyAPI/public/"
-        val BASE_URL = "https://onematel-indonesia.com/ahmadrusdani/AlloyAPI/public/"
+//        val BASE_URL = "http://10.10.10.184/AlloyAPI/public/"
+//        val BASE_URL = "https://onematel-indonesia.com/ahmadrusdani/AlloyAPI/public/"
+        val BASE_URL = "https://alloyfutsall.000webhostapp.com/"
         val IMG_URL = BASE_URL+"ImgSrc/"
     }
 }

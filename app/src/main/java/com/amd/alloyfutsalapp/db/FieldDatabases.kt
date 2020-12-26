@@ -9,7 +9,7 @@ import com.amd.alloyfutsalapp.db.converters.FieldConverter
 import com.amd.alloyfutsalapp.db.dao.FieldDao
 import com.amd.alloyfutsalapp.model.DataItem
 
-@Database(entities = [DataItem::class], version = 2)
+@Database(entities = [DataItem::class], version = 4)
 @TypeConverters(FieldConverter::class)
 
 abstract class FieldDatabases : RoomDatabase() {

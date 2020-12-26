@@ -1,27 +1,29 @@
 package com.amd.alloyfutsalapp.ui.fieldDetails
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.amd.alloyfutsalapp.FieldRepo
 import com.amd.alloyfutsalapp.R
-import com.amd.alloyfutsalapp.databinding.ActivityFieldDetailsBinding
+import com.amd.alloyfutsalapp.adapter.DetailPagerAdapter
+import com.amd.alloyfutsalapp.databinding.ActivityFieldDetailsNewBinding
 import com.amd.alloyfutsalapp.db.FieldDatabases
 import com.amd.alloyfutsalapp.factory.DetailsProviderFactory
 import com.amd.alloyfutsalapp.model.DataItem
-import com.amd.alloyfutsalapp.utils.Constants.Companion.IMG_URL
+import com.amd.alloyfutsalapp.model.FieldTypeItem
 import com.amd.alloyfutsalapp.utils.Utility
 import com.amd.alloyfutsalapp.viewModel.DetailsViewModel
 
 class FieldDetailsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityFieldDetailsBinding
+    private lateinit var binding: ActivityFieldDetailsNewBinding
     private lateinit var viewModel: DetailsViewModel
     private lateinit var dataItem: DataItem
     private lateinit var bookmarkMenu: MenuItem
@@ -29,7 +31,7 @@ class FieldDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFieldDetailsBinding.inflate(layoutInflater)
+        binding = ActivityFieldDetailsNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         context = this
         val repo = FieldRepo(FieldDatabases(this))
@@ -47,22 +49,23 @@ class FieldDetailsActivity : AppCompatActivity() {
         setView()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setView() {
         intent.getSerializableExtra("data")?.let {
             dataItem = it as DataItem
             dataItem.let { data ->
+                binding.incPager.apply {
+                    pagerImg.adapter = DetailPagerAdapter(context, data.imgSrc)
+                    tabImg.setupWithViewPager(pagerImg)
+                }
                 binding.incContent.apply {
                     txtTitleField.text = data.nameField
                     txtAddress.text = data.address
-                    Utility.loadImage(
-                        this@FieldDetailsActivity,
-                        IMG_URL + data.imgSrc[0].imgSrc,
-                        binding.imgField
-                    )
-                    txtAmountField.text = data.amountField
+                    txtAmountField.text =
+                        "${if (data.isIndoor == "1") "Ya" else "Tidak"}/${data.amountField} Lapangan"
                     txtFacility.text = data.facility
+                    txtPrice.text = getListFieldType(data.fieldType)
                     txtOperationalHour.text = data.operationalHour
-                    txtPrice.text = "${Utility.KeRupiah(data.price)}/Jam"
                     fabMaps.setOnClickListener {
                         try {
                             val gmaps =
@@ -71,24 +74,26 @@ class FieldDetailsActivity : AppCompatActivity() {
                             val i = Intent(Intent.ACTION_VIEW, gmaps)
                             i.setPackage("com.google.android.apps.maps")
                             if (i.resolveActivity(packageManager) != null) {
-                               startActivity(i)
+                                startActivity(i)
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
                     }
 
-                    btnBook.setOnClickListener { book ->
+                    btnBook.setOnClickListener {
                         try {
-                            val contact = "+6281317703568"
-                            val url = "https://api.whatsapp.com/send?phone=$contact"
-                            val pm = context.packageManager
-                            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
-                            val i = Intent(Intent.ACTION_VIEW)
-                            i.data = Uri.parse(url)
-                            context.startActivity(i)
-                        }catch (e: java.lang.Exception){
-                            Utility.showSnackBar(binding.root, "Aplikasi WhatsApp belum terinstal!")
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_DIAL,
+                                    Uri.fromParts("tel", data.phone, null)
+                                )
+                            )
+                        } catch (e: java.lang.Exception) {
+                            Log.d(
+                                "Phone error",
+                                "onClick: openmessage" + e.message
+                            )
                         }
                     }
                 }
@@ -115,6 +120,28 @@ class FieldDetailsActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getTypeOfField(param: String) : String{
+        return when(param){
+            "1" -> "Lapangan Plesteran"
+            "2" -> "Lapangan Vinyl"
+            else -> "Lapangan Sintetis"
+        }
+    }
+
+    private fun getListFieldType(fieldType: List<FieldTypeItem>): String {
+        val field = StringBuilder()
+        if (fieldType.size > 1) {
+            for (i in fieldType.indices) {
+                field.append(getTypeOfField(fieldType[i].typeField)+" "+ Utility.KeRupiah(fieldType[i].price))
+                if (i < fieldType.size - 1) {
+                    field.append("\n")
+                }
+            }
+            return field.toString()
+        }
+        return getTypeOfField(fieldType[0].typeField)+" "+ Utility.KeRupiah(fieldType[0].price)
     }
 
     private fun actionBookmark() {

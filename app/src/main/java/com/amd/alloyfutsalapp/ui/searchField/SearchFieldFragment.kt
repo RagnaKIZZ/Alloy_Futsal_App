@@ -88,6 +88,8 @@ class SearchFieldFragment : Fragment() {
         binding.incContent.rvContent.apply {
             adapter = adapterField
             layoutManager = LinearLayoutManager(activity)
+            setPadding(0,0,0,250)
+            clipToPadding = false
         }
         adapterField.setOnItemClickListener { i, dataItem ->
             kotlin.run {

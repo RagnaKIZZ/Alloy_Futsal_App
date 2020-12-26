@@ -33,7 +33,7 @@ Pradita Institue
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="Pembimbing :\n
-Ahmad Rusdani"
+Wahyu Tisno Atmojo, S.Kom., M.Kom."
         android:textAlignment="center"
         android:textSize="20sp" />
 

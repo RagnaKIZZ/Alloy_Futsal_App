@@ -6,9 +6,8 @@ import java.io.Serializable
 data class Meta(
 
 	@field:SerializedName("msg")
-	val msg: String,
+	val msg: String? = null,
 
 	@field:SerializedName("code")
-	val code: Int
-
+	val code: Int? = null
 ) : Serializable

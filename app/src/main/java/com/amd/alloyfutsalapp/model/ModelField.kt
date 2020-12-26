@@ -10,5 +10,4 @@ data class ModelField(
 
 	@field:SerializedName("meta")
 	val meta: Meta
-
 ) : Serializable
